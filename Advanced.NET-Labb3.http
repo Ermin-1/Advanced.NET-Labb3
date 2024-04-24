@@ -1,0 +1,6 @@
+@Advanced.NET_Labb3_HostAddress = http://localhost:5083
+
+GET {{Advanced.NET_Labb3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
