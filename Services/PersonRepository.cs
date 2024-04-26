@@ -1,32 +1,25 @@
-﻿using Advanced.NET_Labb3.Models;
+﻿using Advanced.NET_Labb3.Data;
+using Advanced.NET_Labb3.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Advanced.NET_Labb3.Services
 {
-    public class PersonRepository : IApplication
+    public class PersonRepository : IPersonRepository
     {
-        public Task AddLink(Link link)
+        private AppDbContext _context;
+        public PersonRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task AddPerson(Person person)
+        {
+           _context.Persons.Add(person);
+            await _context.SaveChangesAsync();
         }
 
-        public Task AddPerson(Person person)
+        public async Task<IEnumerable<Person>> GettAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Interest>> GetInterestsPersonId(int personId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Link>> GetLinksIdPersonId(int personId, int interestId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Person>> GettAll()
-        {
-            throw new NotImplementedException();
+            return await _context.Persons.ToListAsync();
         }
     }
 }
