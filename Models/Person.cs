@@ -10,6 +10,6 @@ namespace Advanced.NET_Labb3.Models
         public string LastName { get; set; }
         public int PhoneNumber { get; set; }
 
-        public ICollection<Interest> Interests { get; set; } = new List<Interest>();
+        public ICollection<JoinTable> JoinTables { get; set; } 
     }
 }

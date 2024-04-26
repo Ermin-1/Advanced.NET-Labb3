@@ -11,27 +11,12 @@ namespace Advanced.NET_Labb3.Data
         public DbSet<Person> Persons { get; set; }
         public DbSet<Interest> Interests { get; set; }
         public DbSet<Link> Links { get; set; }
+        public DbSet<JoinTable> JoinTables { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Definiera många-till-många-relationen mellan Person och Interest
-            modelBuilder.Entity<Person>()
-                .HasMany(p => p.Interests)
-                .WithMany(i => i.Persons)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PersonInterest",  // Namn på join-tabellen
-                    j => j.HasOne<Interest>()  // Navigation från join-tabell till Interest
-                          .WithMany()
-                          .HasForeignKey("InterestId")  // Främmande nyckel i join-tabellen som refererar till Interest
-                          .OnDelete(DeleteBehavior.Cascade),  // Hantera borttagning
-                    j => j.HasOne<Person>()  // Navigation från join-tabell till Person
-                          .WithMany()
-                          .HasForeignKey("PersonId")  // Främmande nyckel i join-tabellen som refererar till Person
-                          .OnDelete(DeleteBehavior.Cascade)  // Hantera borttagning
-                )
-                .HasKey("PersonId", "InterestId");  // Sätt primärnycklarna för join-tabellen
 
 
             modelBuilder.Entity<Person>().HasData(
@@ -41,20 +26,21 @@ namespace Advanced.NET_Labb3.Data
 
             );
 
-            modelBuilder.Entity<Interest>().HasData(
+            modelBuilder.Entity<Interest>().HasData(new Interest { InterestId = 1, InterestTitle = "Programmering", InterestDescription = "Sitta och göra sidoprpjekt" });
+            modelBuilder.Entity<Interest>().HasData(new Interest { InterestId = 2, InterestTitle = "Cykla", InterestDescription = "Cykla mountainbike" });
+            modelBuilder.Entity<Interest>().HasData(new Interest { InterestId = 3, InterestTitle = "Surfa", InterestDescription = "Kitesurfa nere i viken" });
 
-                new Interest { InterestId = 1, Description = "Programmering" },
-                new Interest { InterestId = 2, Description = "Cykla" },
-                new Interest { InterestId = 3, Description = "Surfa" }
 
-            );
 
-            modelBuilder.Entity<Link>().HasData(
-                new Link { LinkId = 1, Url = "https://example.com/programmering", InterestId = 1 },
-                new Link { LinkId = 2, Url = "https://example.com/cykla", InterestId = 2 },
-                new Link { LinkId = 3, Url = "https://example.com/surfa", InterestId = 3 }
-            );
+            modelBuilder.Entity<Link>().HasData(new Link { LinkId = 1, Url = "https://example.com/programmering", PersonInterestId = 1 });
+            modelBuilder.Entity<Link>().HasData(new Link { LinkId = 2, Url = "https://example.com/cykla", PersonInterestId = 2 });
+            modelBuilder.Entity<Link>().HasData(new Link { LinkId = 3, Url = "https://example.com/surfa", PersonInterestId = 3 });
 
+
+
+            modelBuilder.Entity<JoinTable>().HasData(new JoinTable{ PersonInterestId = 1,PersonId = 1, InterestId = 1});
+            modelBuilder.Entity<JoinTable>().HasData(new JoinTable{PersonInterestId = 2,PersonId = 2,InterestId = 2,});
+            modelBuilder.Entity<JoinTable>().HasData(new JoinTable{PersonInterestId = 3,PersonId = 3,InterestId = 3,});
         }
 
 

@@ -11,10 +11,42 @@ namespace Advanced.NET_Labb3.Services
         {
             _context = context;
         }
-        public async Task AddPerson(Person person)
+
+        public async Task AddIPerson(int personId, int interest)
         {
-           _context.Persons.Add(person);
+            var personILink = new JoinTable
+
+            {
+                PersonId = personId,
+                InterestId = interest
+            };
+            _context.JoinTables.Add(personILink);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task AddLPerson(int personId, int interestId, string url)
+        {
+            var result = new JoinTable
+            {
+                PersonId = personId,
+                InterestId = interestId,
+                Links = new List<Link>() { new Link { Url = url } }
+            };
+
+            _context.JoinTables.Add(result);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Interest>> GetPInterest(int id)
+        {
+            var personInterest = await _context.JoinTables.Where(p => p.PersonId == id).Select(p => p.Interest).ToListAsync();
+
+            return personInterest;
+        }
+
+        public async Task<IEnumerable<Link>> GetPLinks(int id)
+        {
+            return await _context.JoinTables.Where(p => p.PersonId == id).SelectMany(u => u.Links).ToListAsync();
         }
 
         public async Task<IEnumerable<Person>> GettAll()

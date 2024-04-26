@@ -10,14 +10,8 @@ namespace Advanced.NET_Labb3.Models
         public string Url { get; set; }
 
 
-        [ForeignKey("InterestId")]
-        public int InterestId { get; set; }
-        public Interest Interest { get; set; }
-
-
-        [ForeignKey("PersonId")]
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
+        public int PersonInterestId { get; set; }
+        public JoinTable joinTable { get; set; }
 
     }
 }

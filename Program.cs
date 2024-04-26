@@ -1,4 +1,9 @@
 
+using Advanced.NET_Labb3.Data;
+using Advanced.NET_Labb3.Models;
+using Advanced.NET_Labb3.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace Advanced.NET_Labb3
 {
     public class Program
@@ -13,6 +18,11 @@ namespace Advanced.NET_Labb3
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+
+            builder.Services.AddDbContext<AppDbContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
             var app = builder.Build();
 
