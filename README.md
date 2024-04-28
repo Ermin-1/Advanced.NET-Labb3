@@ -1,0 +1,5 @@
+![PersonLink](https://github.com/Ermin-1/Advanced.NET-Labb3/assets/145432458/fc5a9945-23d8-41c0-9bed-3d7a1d1f1657)
+![PersonAddLInk](https://github.com/Ermin-1/Advanced.NET-Labb3/assets/145432458/198a6d7e-850e-4122-aaf2-bc60c6c9790c)
+![LäggTillPersonIntressen](https://github.com/Ermin-1/Advanced.NET-Labb3/assets/145432458/6acb82bf-da7d-4205-9a80-4e90ea0ef6c3)
+![HämtaPersonIntressen](https://github.com/Ermin-1/Advanced.NET-Labb3/assets/145432458/2981db4d-65b9-4709-a116-08f75b7edbd3)
+![HämtaPersoner](https://github.com/Ermin-1/Advanced.NET-Labb3/assets/145432458/d7a79029-042c-4d0b-a13e-b7b6bc47189d)
